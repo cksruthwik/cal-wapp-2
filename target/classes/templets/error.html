@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+</head>
+<body>
+    <h2>Error</h2>
+
+    <p th:if="${#strings.startsWith(request['javax.servlet.error.request_uri'], '/calculator')}">
+        <strong>Oops! Something went wrong.</strong><br>
+        Please check your inputs and try again.
+    </p>
+    <p th:unless="${#strings.startsWith(request['javax.servlet.error.request_uri'], '/calculator')}">
+        <strong>Oops! An unexpected error occurred.</strong><br>
+        We apologize for the inconvenience. Please try again later.
+    </p>
+
+    <p>Error details:</p>
+    <ul>
+        <li th:each="error : ${#fields.errors('*')}" th:text="${error}"></li>
+    </ul>
+
+    <a th:href="@{/calculator}">Back to Calculator</a>
+</body>
+</html>
